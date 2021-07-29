@@ -15,7 +15,7 @@ public class JsonParser {
 		
 		Gson gson = new Gson();
 	
-		Companies companies = gson.fromJson(new FileReader("D:\\JAVA\\JSONTask\\companies.json"), Companies.class);
+		Companies companies = gson.fromJson(new FileReader("companies.json"), Companies.class);
 
 		
 		System.out.println("Company names and founding dates: ");
