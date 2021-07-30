@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Scanner;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -31,7 +32,7 @@ public class JsonParser {
 		System.out.println();
 		
 		System.out.println("Overdue securities: ");
-		int count;
+		int count = 0;
 		Date currentTime = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy", Locale.ENGLISH);
 		for (Company com : companies.getCompanies()) {	
@@ -40,15 +41,36 @@ public class JsonParser {
 				Date date = formatter.parse(secTime);
 				if (date.getTime()<currentTime.getTime()) {
 					System.out.println("Security name: " + sec.getName() + "; Code: " + sec.getCode() + "; Overdue date: " + sec.getDate());
+					count++;
 				}
 			}
 		}
+		System.out.println("Number of overdue securities: " + count);
 		
 		System.out.println();
 		
-		
-		String userRequestDate = "20/08/96" ;
-		String userRequestDateType = "dd/MM/yy"; // "dd/MM/yy" "dd.MM.yyyy" "dd.MM.yy"
+		Scanner sc = new Scanner(System.in);
+	    System.out.println("Chose type of data (Print number): 1. dd/MM/yy; 2. dd/MM/yyyy; 3. dd.MM.yy; 4. dd.MM.yyyy");
+	    int number = sc.nextInt();
+	    String userRequestDateType = "dd/MM/yy"; 
+	    switch (number) {
+        case  (1):
+        	userRequestDateType = "dd/MM/yy";
+            break;
+        case (2):
+        	userRequestDateType = "dd/MM/yyyy";
+            break;
+        case (3):
+        	userRequestDateType = "dd.MM.yy";
+            break;
+        case (4):
+        	userRequestDateType = "dd.MM.yyyy";
+            break;
+	    }
+	    Scanner sc1 = new Scanner(System.in);
+	    System.out.println("Enter the date according " + userRequestDateType);
+	    String dat = sc1.nextLine();
+	    String userRequestDate = dat; 
 		System.out.println("Companies created after " + userRequestDate + ":");
 		for (Company com : companies.getCompanies()) {	
 			
@@ -63,7 +85,9 @@ public class JsonParser {
 		
 		System.out.println();
 		
-		String userRequestCurrency = "RUB";
+		Scanner sc2 = new Scanner(System.in);
+	    System.out.println("Enter the currency from the list: EU, RUB, USD ");
+	    String userRequestCurrency = sc2.nextLine();
 		System.out.println("User request currency - " + userRequestCurrency);
 		for (Company comp : companies.getCompanies()) {		
 			for (Security s : comp.getSecurities()) {
